@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title></title>
+
+    <link rel="stylesheet" href="../bower_components/bootstrap-css/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap-css/css/bootstrap-theme.min.css">
+
+    <script src="js/vendor/Faker.js"></script>
+
+    <script type="text/javascript" src="../bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="../bower_components/angular-resource/angular-resource.min.js"></script>
+    <script type="text/javascript" src="../bower_components/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+    <script type="text/javascript" src="../src/angular-paginator.js"></script>
+
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script>
+  </head>
+
+  <body ng-app="app">
+    <nav class="navbar navbar-default navbar-fixed-top" style="border-radius: 0">
+      <ul class="nav navbar-nav">
+        <li><a href="#home">Home</a></li>
+      </ul>
+    </nav>
+
+    <div class="container" style="padding-top: 60px">
+      <div class="row">
+        <div class="col-lg-12">
+          <table class="table" ng-controller="TableCtrl">
+            <thead>
+              <td></td>
+              <td>Name</td>
+              <td>Description</td>
+              <td>Email</td>
+              <td>Gender</td>
+              <td>Ip</td>
+            </thead>
+
+            <tbody ng-repeat="user in users">
+              <td>{{ $index  + 1}}</td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.description }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.gender }}</td>
+              <td>{{ user.ip_address }}</td>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
