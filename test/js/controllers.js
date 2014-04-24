@@ -9,5 +9,5 @@ app.controller('TableCtrl', ['$scope', '$paginator', function ($scope, $paginato
       ip_address: Faker.Internet.ip(),
       description: Faker.Lorem.paragraph()
     });
-  } 
+  }
 }]);
