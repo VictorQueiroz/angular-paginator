@@ -2,6 +2,8 @@
   <head>
     <title></title>
 
+    <meta charset="utf-8">
+
     <link rel="stylesheet" href="../bower_components/bootstrap-css/css/bootstrap.min.css">
     <link rel="stylesheet" href="../bower_components/bootstrap-css/css/bootstrap-theme.min.css">
 
@@ -31,23 +33,62 @@
         <div class="col-lg-12">
           <table class="table" ng-controller="TableCtrl">
             <thead>
-              <td></td>
-              <td>Name</td>
-              <td>Description</td>
-              <td>Email</td>
-              <td>Gender</td>
-              <td>Ip</td>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Email</th>
+              <th>Gender</th>
+              <th>Ip</th>
             </thead>
 
-            <tbody ng-repeat="user in users">
-              <td>{{ $index  + 1}}</td>
-              <td>{{ user.name }}</td>
-              <td>{{ user.description }}</td>
-              <td>{{ user.email }}</td>
-              <td>{{ user.gender }}</td>
-              <td>{{ user.ip_address }}</td>
+            <tr>
+              <td>
+                <button class="btn btn-default" ng-click="users.paginator.prevPage()">Prev</button>
+              </td>
+              <td></td>
+              <td>
+                {{ users.paginator.page + 1 }} / {{ users.paginator.pages.integer }}
+              </td>
+              <td></td>
+              <td>
+                <button class="btn btn-default" ng-click="users.paginator.nextPage()">Next</button>
+              </td>
+            </tr>            
+
+            <tbody ng-repeat="user in users | startFrom: users.paginator.page * users.paginator.perPage | limitTo: users.paginator.perPage">
+              <td width="20%">{{ user.id }}</td>
+              <td width="20%">{{ user.name }}</td>
+              <td width="20%">{{ user.description }}</td>
+              <td width="20%">{{ user.email }}</td>
+              <td width="20%">{{ user.gender }}</td>
+              <td width="20%">{{ user.ip_address }}</td>
             </tbody>
           </table>
+
+          <h1>Messages</h1>
+          <table class="table" ng-controller="TableCtrl">
+            <thead>
+              <th>Id</th>
+              <th>Message</th>
+            </thead>
+
+            <tr>
+              <td>
+                <button class="btn btn-default" ng-click="messages.paginator.prevPage()">Prev</button>
+              </td>
+              <td>
+                {{ messages.paginator.page + 1 }} / {{ messages.paginator.pages.integer }}
+              </td>
+              <td>
+                <button class="btn btn-default" ng-click="messages.paginator.nextPage()">Next</button>
+              </td>
+            </tr>            
+
+            <tbody ng-repeat="message in messages | startFrom: messages.paginator.page * messages.paginator.perPage | limitTo: messages.paginator.perPage">
+              <td width="20%">{{ message.id }}</td>
+              <td width="20%">{{ message.message }}</td>
+            </tbody>
+          </table>          
         </div>
       </div>
     </div>
