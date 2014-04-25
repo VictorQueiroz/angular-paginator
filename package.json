@@ -1,0 +1,25 @@
+{
+  "name": "angular-paginator",
+  "version": "1.0.0",
+  "description": "A simple AngularJS module to page anything.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/VictorQueiroz/angular-paginator.git"
+  },
+  "author": "Victor Queiroz <victorcqueirozg@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VictorQueiroz/angular-paginator/issues"
+  },
+  "homepage": "https://github.com/VictorQueiroz/angular-paginator",
+  "devDependencies": {
+    "grunt": "^0.4.4"
+  }
+}

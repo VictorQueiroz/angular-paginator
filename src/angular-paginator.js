@@ -1,9 +1,9 @@
 'use strict';
 
-var paginatorModule = angular.module('paginator', []);
+var paginatorModule = angular.module('paginator', []).
+                      provider('$paginator', $paginatorProvider);
 
-paginatorModule.factory('Paginator', function() {
-
+function $paginatorProvider () {
   var paginator = {};
 
   paginator.new = function(perPage) {
@@ -11,7 +11,9 @@ paginatorModule.factory('Paginator', function() {
     perPage = perPage === undefined ? 5 : perPage;
 
     var paginator = {
-      pages : {integer: 1, toArray: function (){
+      pages : {
+        integer: 1,
+        toArray: function () {
           var array = [];
 
           for(var i=0; i < paginator.pages.integer; i++) {
@@ -46,8 +48,12 @@ paginatorModule.factory('Paginator', function() {
     return paginator;
   };
 
-  return paginator;
-});
+  this.$get = [function () {
+    return new function () {
+      return paginator;
+    }
+  }];
+}
 
 paginatorModule.filter('startFrom', function() {
   return function(input, start) {

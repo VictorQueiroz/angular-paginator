@@ -1,6 +1,7 @@
 {
   "name": "angular-paginator",
-  "version": "0.0.1",
+  "author": "Victor Queiroz <victorcqueirozg@gmail.com>",
+  "version": "1.0.0",
   "description": "A simple AngularJS module to page anything.",
   "license": "MIT",
   "ignore": [
