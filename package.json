@@ -2,6 +2,7 @@
   "name": "angular-paginator",
   "version": "1.0.0",
   "description": "A simple AngularJS module to page anything.",
+  "author": "Victor Queiroz <victorcqueirozg@gmail.com>",
   "main": "index.js",
   "directories": {
     "test": "test"
