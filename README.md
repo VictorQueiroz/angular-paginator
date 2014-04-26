@@ -13,7 +13,7 @@ Your controller who uses the paginator should be like this:
 angular.module('app', ['paginator']).controller('AppCtrl', ['$scope', 'Paginator', function () {
   $scope.numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   
-  $scope.numbers.paginator = Paginator.new();
+  $scope.numbers.paginator = $paginator.new();
   $scope.numbers.paginator.pages.integer = Math.ceil($scope.numbers.length/$scope.numbers.paginator.perPage);
 }]);
 ```
