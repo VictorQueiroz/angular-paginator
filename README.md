@@ -32,6 +32,6 @@ And your HTML code like this:
 
 ```limitTo``` is a native AngularJS filter, if you want to learn more about him, read: https://docs.angularjs.org/api/ng/filter/limitTo.
 
-The ```$paginator.perPage``` it is the number of results that will be showed in each page, and can be defined through ```$paginator.new(2)``` or ```$paginator.new().perPage = x```.
+The ```$paginator.new().perPage``` it is the number of results that will be showed in each page, and can be defined through ```$paginator.new(2)``` or ```$paginator.new().perPage = x```.
 
 Enjoy!
