@@ -3,6 +3,10 @@ angular-paginator
 
 A simple AngularJS module to page anything.
 
+Installation
+=================
+```bower install ng-paginator --save-dev```
+
 Usage
 =================
 
