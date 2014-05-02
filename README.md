@@ -14,7 +14,7 @@ Import ```angular-paginator.js``` after your ```angular.js``` file, and before y
 
 Your controller who uses the paginator should be like this:
 ```js
-angular.module('app', ['paginator']).controller('AppCtrl', ['$scope', 'Paginator', function () {
+angular.module('app', ['paginator']).controller('AppCtrl', ['$scope', '$paginator', function ($scope, $paginator) {
   $scope.numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   
   $scope.numbers.paginator = $paginator.new();
