@@ -14,10 +14,10 @@ Import ```angular-paginator.js``` after your ```angular.js``` file, and before y
 
 Your controller who uses the paginator should be like this:
 ```js
-angular.module('app', ['paginator']).controller('AppCtrl', ['$scope', '$paginator', function ($scope, $paginator) {
+angular.module('app', ['paginator']).controller('AppCtrl', ['$scope', 'Paginator', function ($scope, Paginator) {
   $scope.numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   
-  $scope.numbers.paginator = $paginator.new();
+  $scope.numbers.paginator = Paginator.new();
   $scope.numbers.paginator.pages.integer = Math.ceil($scope.numbers.length/$scope.numbers.paginator.perPage);
 }]);
 ```
@@ -36,6 +36,6 @@ And your HTML code like this:
 
 ```limitTo``` is a native AngularJS filter, if you want to learn more about him, read: https://docs.angularjs.org/api/ng/filter/limitTo.
 
-The ```$paginator.new().perPage``` it is the number of results that will be showed in each page, and can be defined through ```$paginator.new(2)``` or ```$paginator.new().perPage = x```.
+The ```Paginator.new().perPage``` it is the number of results that will be showed in each page, and can be defined through ```Paginator.new(2)``` or ```Paginator.new().perPage = x```.
 
 Enjoy!

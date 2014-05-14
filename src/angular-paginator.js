@@ -1,7 +1,7 @@
 'use strict';
 
 var paginatorModule = angular.module('paginator', []).
-                      provider('$paginator', $paginatorProvider);
+                      provider('Paginator', $paginatorProvider);
 
 function $paginatorProvider () {
   var paginator = {};

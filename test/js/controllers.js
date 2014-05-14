@@ -7,7 +7,7 @@ function $testProvider () {
   }];
 }
 
-app.controller('TableCtrl', ['$scope', '$paginator', '$test', function ($scope, $paginator, $test) {
+app.controller('TableCtrl', ['$scope', 'Paginator', '$test', function ($scope, Paginator, $test) {
   var users = $scope.users = [];
 
   for(var i=0; i < 10; i++) {
@@ -23,7 +23,7 @@ app.controller('TableCtrl', ['$scope', '$paginator', '$test', function ($scope, 
 
   $scope.$test = $test;
 
-  $scope.users.paginator = $paginator.new();
+  $scope.users.paginator = Paginator.new();
   $scope.users.paginator.pages.integer = Math.ceil($scope.users.length/$scope.users.paginator.perPage);
 
   var messages = $scope.messages = [];
@@ -32,6 +32,6 @@ app.controller('TableCtrl', ['$scope', '$paginator', '$test', function ($scope, 
     messages.push({id: i + 1, message: Faker.Lorem.paragraphs(2)});
   }
 
-  $scope.messages.paginator = $paginator.new();
+  $scope.messages.paginator = Paginator.new();
   $scope.messages.paginator.pages.integer = Math.ceil($scope.messages.length/$scope.messages.paginator.perPage);
 }]);
