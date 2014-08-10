@@ -65,7 +65,7 @@ angular.module('victorqueiroz.ngPaginator', [])
     restrict: 'E',
     scope: {
       paginator: '=',
-      event: '&'
+      eventName: '&'
     },
     template: 
     '<ul class="pagination">'+
