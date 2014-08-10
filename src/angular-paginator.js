@@ -16,7 +16,7 @@ angular.module('victorqueiroz.ngPaginator', [])
     if(nextPage > $scope.paginator[$scope.lastKey])
       return;
 
-    $scope.$emit($scope.eventName, nextPage);
+    $scope.$emit($scope.eventName, {page: nextPage});
   };
 
   /*
@@ -28,17 +28,17 @@ angular.module('victorqueiroz.ngPaginator', [])
     if(prevPage < 1)
       return;
 
-    $scope.$emit($scope.eventName, prevPage);
+    $scope.$emit($scope.eventName, {page: prevPage});
   };
 
   $scope.setPage = function (page) {
     if(page > $scope.paginator[$scope.lastKey])
       return;
 
-    $scope.$emit($scope.eventName, page);
+    $scope.$emit($scope.eventName, {page: page});
   };
 
-  $scope.$emit($scope.eventName, $location.search()['page'] || 1);
+  $scope.$emit($scope.eventName, {page: $location.search()['page'] || 1});
 }])
 
 .directive('vqPager', [function() {

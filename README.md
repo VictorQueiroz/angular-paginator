@@ -32,17 +32,17 @@ controllers.js
 .controller('ParentCtrl', ['$scope', function ($scope) {
 	...
 
-	$scope.$on('page changed', function (page) {
+	$scope.$on('page changed', function (event, params) {
 		$http.get('/api/users', {
 			params: {
-				page: page,
-				per_page: 10
+				page: params.page,
+				per_page: (params.per_page || 10)
 			}
 		}).then(function(res){
 			$scope.users = res.data.data;
 
 			/**
-			 * { 'current': 1, 'pageCount': 10, 'rowsPerPage': 2, 'data': [
+			 * { 'current': 1, 'pageCount': 10, 'rowsPerPage': 10, 'data': [
 			 *   { 'name': 'Leonardo de Carvalho' },
 			 *   { 'name': 'Napoleão Bonaparte' }
 			 * ] }
