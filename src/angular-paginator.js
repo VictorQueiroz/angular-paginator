@@ -5,6 +5,11 @@ angular.module('victorqueiroz.ngPaginator', [])
 .controller('PaginationController', ['$scope', '$location', function ($scope, $location) {
   $scope.paginator = {};
 
+  var events = {
+    changed: $scope.eventName + ' page changed',
+    reload: $scope.eventName + ' paginator reload'
+  };
+
   /*
    * Avança para a próxima página (teoricamente)
    * e carrega a página equivalente a próxima página
@@ -16,7 +21,7 @@ angular.module('victorqueiroz.ngPaginator', [])
     if(nextPage > $scope.paginator[$scope.lastKey])
       return;
 
-    $scope.$emit($scope.eventName, nextPage, $scope.paginator);
+    $scope.$emit(events.changed, nextPage, $scope.paginator);
   };
 
   /*
@@ -28,17 +33,21 @@ angular.module('victorqueiroz.ngPaginator', [])
     if(prevPage < 1)
       return;
 
-    $scope.$emit($scope.eventName, prevPage, $scope.paginator);
+    $scope.$emit(events.changed, prevPage, $scope.paginator);
   };
 
   $scope.setPage = function (page) {
     if(page > $scope.paginator[$scope.lastKey])
       return;
 
-    $scope.$emit($scope.eventName, page, $scope.paginator);
+    $scope.$emit(events.changed, page, $scope.paginator);
   };
 
-  $scope.$emit($scope.eventName, $location.search()['page'] || 1, $scope.paginator);
+  $scope.$emit(events.changed, $location.search()['page'] || 1, $scope.paginator);
+
+  $scope.$on(events.reload, function () {
+    $scope.$emit(events.changed, 1, $scope.paginator);
+  });
 }])
 
 .directive('vqPager', [function() {

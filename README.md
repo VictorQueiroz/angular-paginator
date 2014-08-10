@@ -23,7 +23,7 @@ index.html
 		</tbody>
 	</table>
 
-	<vq-pager data-paginator="paginator" data-event-name="'page changed'" data-current-key="'current'" data-last-key="'pageCount'"></vq-pager>
+	<vq-pager data-paginator="paginator" data-event-name="'users'" data-current-key="'current'" data-last-key="'pageCount'"></vq-pager>
 </div>
 ```
 
@@ -32,7 +32,7 @@ controllers.js
 .controller('ParentCtrl', ['$scope', function ($scope) {
 	...
 
-	$scope.$on('page changed', function (event, page, paginator) {
+	$scope.$on('users page changed', function (event, page, paginator) {
 		$http.get('/api/users', {
 			params: {
 				page: page,
