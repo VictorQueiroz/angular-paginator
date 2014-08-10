@@ -1,4 +1,4 @@
-<html>
+<html ng-app="app">
   <head>
     <title></title>
 
@@ -21,74 +21,29 @@
     <script type="text/javascript" src="js/controllers.js"></script>
   </head>
 
-  <body ng-app="app">
-    <nav class="navbar navbar-default navbar-fixed-top" style="border-radius: 0">
+  <body>
+    <nav class="navbar navbar-default">
       <ul class="nav navbar-nav">
         <li><a href="#home">Home</a></li>
       </ul>
     </nav>
 
-    <div class="container" style="padding-top: 60px">
+    <div class="container" ng-controller="PostCtrl">
       <div class="row">
         <div class="col-lg-12">
-          <table class="table" ng-controller="TableCtrl">
+          <table class="table">
             <thead>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Email</th>
-              <th>Gender</th>
-              <th>Ip</th>
-            </thead>
+              <th>Title</th>
+              <th>Body</th>
+            </thead> 
 
-            <tr>
-              <td>
-                <button class="btn btn-default" ng-click="users.paginator.prevPage()">Prev</button>
-              </td>
-              <td></td>
-              <td>
-                {{ users.paginator.page + 1 }} / {{ users.paginator.pages.integer }}
-              </td>
-              <td></td>
-              <td>
-                <button class="btn btn-default" ng-click="users.paginator.nextPage()">Next</button>
-              </td>
-            </tr>            
-
-            <tbody ng-repeat="user in users | startFrom: users.paginator.page * users.paginator.perPage | limitTo: users.paginator.perPage">
-              <td width="20%">{{ user.id }}</td>
-              <td width="20%">{{ user.name }}</td>
-              <td width="20%">{{ user.description }}</td>
-              <td width="20%">{{ user.email }}</td>
-              <td width="20%">{{ user.gender }}</td>
-              <td width="20%">{{ user.ip_address }}</td>
+            <tbody ng-repeat="post in posts">
+              <td width="20%">{{ post.title }}</td>
+              <td width="20%">{{ post.body }}</td>
             </tbody>
           </table>
 
-          <h1>Messages</h1>
-          <table class="table" ng-controller="TableCtrl">
-            <thead>
-              <th>Id</th>
-              <th>Message</th>
-            </thead>
-
-            <tr>
-              <td>
-                <button class="btn btn-default" ng-click="messages.paginator.prevPage()">Prev</button>
-              </td>
-              <td>
-                {{ messages.paginator.page + 1 }} / {{ messages.paginator.pages.integer }}
-              </td>
-              <td>
-                <button class="btn btn-default" ng-click="messages.paginator.nextPage()">Next</button>
-              </td>
-            </tr>            
-
-            <tbody ng-repeat="message in messages | startFrom: messages.paginator.page * messages.paginator.perPage | limitTo: messages.paginator.perPage">
-              <td width="20%">{{ message.id }}</td>
-              <td width="20%">{{ message.message }}</td>
-            </tbody>
-          </table>          
+          <vq-pager paginator="paginator"></vq-pager>    
         </div>
       </div>
     </div>

@@ -14,13 +14,13 @@
     "type": "git",
     "url": "git://github.com/VictorQueiroz/angular-paginator.git"
   },
-  "author": "Victor Queiroz <victorcqueirozg@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/VictorQueiroz/angular-paginator/issues"
   },
   "homepage": "https://github.com/VictorQueiroz/angular-paginator",
   "devDependencies": {
-    "grunt": "^0.4.4"
+    "grunt": "^0.4.4",
+    "grunt-contrib-uglify": "^0.5.1"
   }
 }

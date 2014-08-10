@@ -1,76 +1,74 @@
 'use strict';
 
-var paginatorModule = angular.module('paginator', []).
-                      provider('Paginator', $paginatorProvider);
+angular.module('victorqueiroz.ngPaginator', [])
 
-function $paginatorProvider () {
-  var paginator = {};
+.controller('PaginationController', ['$scope', '$location', function ($scope, $location) {
+  $scope.paginator = {};
 
-  paginator.new = function(perPage) {
+  /*
+   * Avança para a próxima página (teoricamente)
+   * e carrega a página equivalente a próxima página
+   * utilizando o back-end.
+   */
+  $scope.nextPage = function () {
+    var nextPage = ($scope.paginator.current + 1);
 
-    perPage = perPage === undefined ? 5 : perPage;
+    if(nextPage > $scope.paginator.pageCount)
+      return;
 
-    var paginator = {
-      pages : {
-        integer: 1,
-        toArray: function () {
-          var array = [];
-
-          for(var i=0; i < paginator.pages.integer; i++) {
-            array.push(i);
-          }
-
-          return array;
-        }
-      },
-      perPage: perPage,
-      page: 0
-    };
-
-    paginator.prevPage = function() {
-      if (paginator.page > 0) {
-        paginator.page -= 1;
-      }
-    };
-
-    paginator.nextPage = function() {
-      if (paginator.page < paginator.pages.integer - 1) {
-        paginator.page += 1;
-      }
-    };
-
-    paginator.toPageId = function(id) {
-      if (id >= 0 && id <= paginator.pages.integer - 1) {
-        paginator.page = id;
-      }
-    };
-
-    return paginator;
+    $scope.$emit('page changed', nextPage);
   };
 
-  this.$get = [function () {
-    return new function () {
-      return paginator;
-    }
-  }];
-}
+  /*
+   * Volta uma página.
+   */
+  $scope.prevPage = function () {
+    var prevPage = ($scope.paginator.current - 1);
 
-paginatorModule.filter('startFrom', function() {
-  return function(input, start) {
-    if (input === undefined) {
-      return input;
-    } else {
-      return input.slice(+start);
-    }
-  };
-});
+    if(prevPage < 1)
+      return;
 
-paginatorModule.filter('range', function() {
-  return function(input, total) {
-    total = parseInt(total);
-    for (var i = 0; i < total; i++) {
-      input.push(i);
-    }
-    return input;
+    $scope.$emit('page changed', prevPage);
   };
-});
+
+  $scope.setPage = function (page) {
+    if(page > $scope.paginator.pageCount)
+      return;
+
+    $scope.$emit('page changed', page);
+  };
+
+  $scope.$emit('page changed', $location.search()['page'] || 1);
+}])
+
+.directive('vqPager', [function() {
+  return {
+    restrict: 'E',
+    scope: {
+      paginator: '='
+    },
+    template: 
+    '<ul class="pager">'+
+      '<li ng-class="{\'disabled\': paginator.current == 1}" class="previous"><a href="" ng-click="prevPage()">« Anterior</a></li>'+
+      '<li>{{paginator.current}} / {{paginator.pageCount}}</a></li>'+
+      '<li ng-class="{\'disabled\': paginator.current == paginator.pageCount}" class="next"><a href="" ng-click="nextPage()">Próxima »</a></li>'+
+    '</ul>',
+    controller: 'PaginationController'
+  };
+}])
+
+.directive('vqPagination', [function() {
+  return {
+    restrict: 'E',
+    scope: {
+      paginator: '='
+    },
+    template: 
+    '<ul class="pagination">'+
+      '<li ng-class="{\'disabled\': paginator.current == 1}"><a href="" ng-click="prevPage()">« Anterior</a></li>'+
+      '<li ng-repeat="page in paginator.range" ng-class="{ \'active\': paginator.current == ($index + 1) }"><a href="" ng-click="setPage( (page + 1) )">{{ page + 1 }}</a></li>'+
+      '<li ng-class="{\'disabled\': paginator.current == paginator.pageCount}"><a href="" ng-click="nextPage()">Próxima »</a></li>'+
+    '</ul>',
+    controller: 'PaginationController'
+  };
+}]);

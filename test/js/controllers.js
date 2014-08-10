@@ -1,37 +1,20 @@
-app.provider('$test', $testProvider);
-function $testProvider () {
-  this.$get = [function (){
-    return new function() {
-      return {a: 1}
-    };
-  }];
-}
+angular.module('app.controllers', [])
 
-app.controller('TableCtrl', ['$scope', 'Paginator', '$test', function ($scope, Paginator, $test) {
-  var users = $scope.users = [];
+.controller('PostCtrl', ['$scope', '$http', function ($scope, $http) {
+  $scope.$on('page changed', function (event, page) {
+    $http.get('http://localhost:3000/api/posts', {
+      params: {
+        per_page: 2,
+        page: page
+      }
+    }).then(function(res){
+      var posts = res.data.data;
 
-  for(var i=0; i < 10; i++) {
-    users.push({
-      id: i + 1,
-      name: Faker.Name.findName(),
-      email: Faker.Internet.email(),
-      gender: Faker.Name.gender(),
-      ip_address: Faker.Internet.ip(),
-      description: Faker.Lorem.paragraph()
+      $scope.posts = posts;
+
+      var paginator = res.data;
+
+      $scope.paginator = paginator;
     });
-  }
-
-  $scope.$test = $test;
-
-  $scope.users.paginator = Paginator.new();
-  $scope.users.paginator.pages.integer = Math.ceil($scope.users.length/$scope.users.paginator.perPage);
-
-  var messages = $scope.messages = [];
-
-  for(var i=0; i < 10; i++) {
-    messages.push({id: i + 1, message: Faker.Lorem.paragraphs(2)});
-  }
-
-  $scope.messages.paginator = Paginator.new();
-  $scope.messages.paginator.pages.integer = Math.ceil($scope.messages.length/$scope.messages.paginator.perPage);
+  });
 }]);
