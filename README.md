@@ -10,10 +10,12 @@ Installation
 Usage
 =================
 
+index.html
 ```html
-<vq-pager data-paginator="paginator"></vq-pager>
+<vq-pager data-paginator="paginator" data-event-name="'page changed'" data-current-key="'current'" data-last-key="'pageCount'"></vq-pager>
 ```
 
+controllers.js
 ```js
 .controller('MainCtrl', ['$scope', function ($scope) {
 	...
@@ -26,6 +28,13 @@ Usage
 			}
 		}).then(function(res){
 			$scope.users = res.data.data;
+
+			/**
+			 * { 'current': 1, 'pageCount': 10, 'rowsPerPage': 2, 'data': [
+			 *   { 'name': 'Leonardo de Carvalho' },
+			 *   { 'name': 'Napoleão Bonaparte' }
+			 * ] }
+			 */
 			$scope.paginator = res.data;
 		});
 	});

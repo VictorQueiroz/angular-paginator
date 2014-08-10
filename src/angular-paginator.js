@@ -11,9 +11,9 @@ angular.module('victorqueiroz.ngPaginator', [])
    * utilizando o back-end.
    */
   $scope.nextPage = function () {
-    var nextPage = ($scope.paginator.current + 1);
+    var nextPage = ($scope.paginator[$scope.currentKey] + 1);
 
-    if(nextPage > $scope.paginator.pageCount)
+    if(nextPage > $scope.paginator[$scope.lastKey])
       return;
 
     $scope.$emit($scope.eventName, nextPage);
@@ -23,7 +23,7 @@ angular.module('victorqueiroz.ngPaginator', [])
    * Volta uma página.
    */
   $scope.prevPage = function () {
-    var prevPage = ($scope.paginator.current - 1);
+    var prevPage = ($scope.paginator[$scope.currentKey] - 1);
 
     if(prevPage < 1)
       return;
@@ -32,15 +32,13 @@ angular.module('victorqueiroz.ngPaginator', [])
   };
 
   $scope.setPage = function (page) {
-    if(page > $scope.paginator.pageCount)
+    if(page > $scope.paginator[$scope.lastKey])
       return;
 
     $scope.$emit($scope.eventName, page);
   };
 
   $scope.$emit($scope.eventName, $location.search()['page'] || 1);
-
-  console.log($scope.eventName);
 }])
 
 .directive('vqPager', [function() {
@@ -48,15 +46,17 @@ angular.module('victorqueiroz.ngPaginator', [])
     restrict: 'E',
     scope: {
       paginator: '=',
-      eventName: '='
+      eventName: '=',
+      currentKey: '=',
+      lastKey: '='
     },
+    controller: 'PaginationController',
     template: 
     '<ul class="pager">'+
-      '<li ng-class="{\'disabled\': paginator.current == 1}" class="previous"><a href="" ng-click="prevPage()">« Anterior</a></li>'+
-      '<li>{{paginator.current}} / {{paginator.pageCount}}</a></li>'+
-      '<li ng-class="{\'disabled\': paginator.current == paginator.pageCount}" class="next"><a href="" ng-click="nextPage()">Próxima »</a></li>'+
-    '</ul>',
-    controller: 'PaginationController'
+      '<li ng-class="{ \'disabled\': paginator[currentKey] == 1 }" class="previous"><a href="" ng-click="prevPage()">« Anterior</a></li>'+
+      '<li>{{paginator[currentKey]}} / {{paginator[lastKey]}}</a></li>'+
+      '<li ng-class="{ \'disabled\': paginator[currentKey] == paginator[lastKey] }" class="next"><a href="" ng-click="nextPage()">Próxima »</a></li>'+
+    '</ul>'
   };
 }])
 
@@ -65,14 +65,16 @@ angular.module('victorqueiroz.ngPaginator', [])
     restrict: 'E',
     scope: {
       paginator: '=',
-      eventName: '&'
+      eventName: '=',
+      currentKey: '=',
+      lastKey: '='
     },
+    controller: 'PaginationController',
     template: 
     '<ul class="pagination">'+
-      '<li ng-class="{\'disabled\': paginator.current == 1}"><a href="" ng-click="prevPage()">« Anterior</a></li>'+
-      '<li ng-repeat="page in paginator.range" ng-class="{ \'active\': paginator.current == ($index + 1) }"><a href="" ng-click="setPage( (page + 1) )">{{ page + 1 }}</a></li>'+
-      '<li ng-class="{\'disabled\': paginator.current == paginator.pageCount}"><a href="" ng-click="nextPage()">Próxima »</a></li>'+
-    '</ul>',
-    controller: 'PaginationController'
+      '<li ng-class="{ \'disabled\': paginator[currentKey] == 1 }"><a href="" ng-click="prevPage()">« Anterior</a></li>'+
+      '<li ng-repeat="page in paginator.range" ng-class="{ \'active\': paginator[currentKey] == ($index + 1) }"><a href="" ng-click="setPage( (page + 1) )">{{ page + 1 }}</a></li>'+
+      '<li ng-class="{ \'disabled\': paginator[currentKey] == paginator[lastKey] }"><a href="" ng-click="nextPage()">Próxima »</a></li>'+
+    '</ul>'
   };
 }]);
