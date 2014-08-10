@@ -10,14 +10,24 @@ Installation
 Usage
 =================
 
+```html
+<vq-pager data-paginator="paginator"></vq-pager>
+```
+
 ```js
 .controller('MainCtrl', ['$scope', function ($scope) {
 	...
 
 	$scope.$on('page changed', function (page) {
-		console.log('We are going to page number', page);
-
-		$scope.loadPage(page);
+		$http.get('/api/users', {
+			params: {
+				page: page,
+				per_page: 10
+			}
+		}).then(function(res){
+			$scope.users = res.data.data;
+			$scope.paginator = res.data;
+		});
 	});
 }]);
 ```
