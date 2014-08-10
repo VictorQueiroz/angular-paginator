@@ -12,12 +12,24 @@ Usage
 
 index.html
 ```html
-<vq-pager data-paginator="paginator" data-event-name="'page changed'" data-current-key="'current'" data-last-key="'pageCount'"></vq-pager>
+<div ng-controller="ParentCtrl">
+	<table>
+		<thead>
+			<th>Name</th>
+		</thead>
+
+		<tbody ng-repeat="user in users">
+			<td ng-bind="user.name"></td>
+		</tbody>
+	</table>
+
+	<vq-pager data-paginator="paginator" data-event-name="'page changed'" data-current-key="'current'" data-last-key="'pageCount'"></vq-pager>
+</div>
 ```
 
 controllers.js
 ```js
-.controller('MainCtrl', ['$scope', function ($scope) {
+.controller('ParentCtrl', ['$scope', function ($scope) {
 	...
 
 	$scope.$on('page changed', function (page) {
