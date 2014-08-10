@@ -32,11 +32,11 @@ controllers.js
 .controller('ParentCtrl', ['$scope', function ($scope) {
 	...
 
-	$scope.$on('page changed', function (event, params) {
+	$scope.$on('page changed', function (event, page, paginator) {
 		$http.get('/api/users', {
 			params: {
-				page: params.page,
-				per_page: ($scope.per_page || 10)
+				page: page,
+				per_page: (paginator.per_page || 10)
 			}
 		}).then(function(res){
 			$scope.users = res.data.data;
@@ -47,7 +47,7 @@ controllers.js
 			 *   { 'name': 'Napoleão Bonaparte' }
 			 * ] }
 			 */
-			$scope.paginator = res.data;
+			angular.extend(paginator, res.data);
 		});
 	});
 }]);
