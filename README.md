@@ -36,7 +36,7 @@ controllers.js
 		$http.get('/api/users', {
 			params: {
 				page: params.page,
-				per_page: (params.per_page || 10)
+				per_page: ($scope.per_page || 10)
 			}
 		}).then(function(res){
 			$scope.users = res.data.data;
