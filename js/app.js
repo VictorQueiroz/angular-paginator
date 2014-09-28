@@ -1,8 +1,8 @@
 angular.module('app', [])
 
-.controller('UsersCtrl', function ($scope) {
+.controller('UsersController', function ($scope) {
 	$scope.$on('users page changed', function (event, page, paginator) {
-		
+
 	});
 });
 
