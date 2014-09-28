@@ -10,7 +10,6 @@ Installation
 Usage
 =================
 
-index.html
 ```html
 <div ng-controller="ParentCtrl">
 	<table>
@@ -27,30 +26,32 @@ index.html
 </div>
 ```
 
-controllers.js
 ```js
-.controller('ParentCtrl', ['$scope', function ($scope) {
-	...
+angular
+	.module('app', ['ngPaginator'])
 
-	$scope.$on('users page changed', function (event, page, paginator) {
-		$http.get('/api/users', {
-			params: {
-				page: page,
-				per_page: (paginator.per_page || 10)
-			}
-		}).then(function(res){
-			$scope.users = res.data.data;
+	.controller('ParentCtrl', ['$scope', function ($scope) {
+		...
 
-			/**
-			 * { 'current': 1, 'pageCount': 10, 'rowsPerPage': 10, 'data': [
-			 *   { 'name': 'Leonardo de Carvalho' },
-			 *   { 'name': 'Napoleão Bonaparte' }
-			 * ] }
-			 */
-			angular.extend(paginator, res.data);
+		$scope.$on('users page changed', function (event, page, paginator) {
+			$http.get('/api/users', {
+				params: {
+					page: page,
+					per_page: (paginator.per_page || 10)
+				}
+			}).then(function(res){
+				$scope.users = res.data.data;
+
+				/**
+				 * { 'current': 1, 'pageCount': 10, 'rowsPerPage': 10, 'data': [
+				 *   { 'name': 'Leonardo de Carvalho' },
+				 *   { 'name': 'Napoleão Bonaparte' }
+				 * ] }
+				 */
+				angular.extend(paginator, res.data);
+			});
 		});
-	});
-}]);
+	}]);
 ```
 
 Enjoy!
