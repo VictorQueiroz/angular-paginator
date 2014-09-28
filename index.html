@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="/lib/foundation/css/foundation.css">
+		<link rel="stylesheet" href="/lib/foundation/css/normalize.css">
+
+		<script src="/lib/jquery/dist/jquery.min.js"></script>
+		<script src="/lib/jquery-placeholder/jquery.placeholder.js"></script>
+		<script src="/lib/jquery.cookie/jquery.cookie.js"></script>
+		<script src="/lib/foundation/js/foundation.min.js"></script>
+		<script src="/lib/angular/angular.min.js"></script>
+	</head>
+
+	<body>
+		<div class="row" ng-controller="UsersController">
+			<div class="large-12 columns">
+				<h2>Angular Paginator</h2>
+
+				<pager data-current-key="'current'" data-last-key="'pageCount'" data-event-name="'users'" data-paginator="paginator"></pager>
+			</div>
+		</div>
+	</body>
+</html>
